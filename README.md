@@ -10,12 +10,14 @@
     - [Определение монотонной последовательности чисел в строке](#5)
     - [Поиск самой длинной подстроки без повторяющихся символов](#6)
     - [Рассадка зрителей в кинозале](#7)
+    - [Сколько раз слово Tinkoff можно собрать из букв строки](#8)
+    - [Заменить все повторы одинаковых подряд идущих букв на буква + цифру](#9)
 - [Числа, массивы](#numbers)
-    - [Поиск трех и более последовательных чисел в массиве](#8)
-    - [Поиск одинакового числа в массивах](#9)
-    - [Представление числа в обратном порядке](#10)
-    - [Поиск НЕ одинакового числа среди одинаковых в массивах](#11)
-    - [Перенести все нули в массиве в конец](#12)
+    - [Поиск трех и более последовательных чисел в массиве](#10)
+    - [Поиск одинакового числа в массивах](#11)
+    - [Представление числа в обратном порядке](#12)
+    - [Поиск НЕ одинакового числа среди одинаковых в массивах](#13)
+    - [Перенести все нули в массиве в конец](#14)
 
 ## strings
 ### 1
@@ -177,9 +179,65 @@ def seat_users(rows, seats_per_row):
 seat_users(5, 10)
 ```
 
+### 8
+**Дана строка состоящая из букв английского алфавита знаков препинания и пробелов.<br>
+Требуется посчитать сколько раз слово Tinkoff можно собрать из букв этой строки Каждую букву можно использовать только один раз, регистр не имеет значения**
+```
+def countWord(string):
+    word = tnkf.lower()
+    string = string.lower()
+
+    # Создание словаря для подсчета каждой буквы в тексте
+    letter_count = {}
+    for letter in string:
+        if letter.isalpha():  # Убеждаемся, что символ - буква
+            letter_count[letter] = letter_count.get(letter, 1) + 1
+
+    
+    word_num = float('inf')
+    for letter in word:
+        if letter in letter_count:
+            letter_count[letter] -= 1
+            word_num = min(word_num, letter_count[letter])
+        else:
+            word_num = 0  
+
+    return word_num
+
+string = ""
+
+print(countWord(string)
+```
+
+### 9
+**Дана строка из латинских заглавных букв. Необходимо заменить все повторы одинаковых подряд идущих букв на буква + цифру Одиночные буквы заменять не надо**
+```
+def replace_repeated_letters(string):
+    result = ''
+    count = 1
+    for i in range(len(string)):
+        # Если текущий символ - последний в строке
+        if i == len(string) - 1:
+            if count > 1:
+                result += string[i] + str(count)
+            else:
+                result += string[i]
+        # Если текущий символ совпадает со следующим
+        elif string[i] == string[i + 1]:
+            count += 1
+        # Если текущий символ отличается от следующего
+        else:
+            if count > 1:
+                result += string[i] + str(count)
+                count = 1
+            else:
+                result += string[i]
+    return result
+```
+
 ## numbers
 
-### 8
+### 10
 **Написать функцию, которая будет возвращать true, если поданный на ввод массив int содержит 3 и более последовательных числа в любом месте.**
 ```
 def has_three_consecutive(nums):
@@ -194,7 +252,7 @@ nums = [1, 2, 3, 4, 5]
 print(has_three_consecutive(nums))  # Вернет True
 ```
 
-### 9
+### 11
 **Даны три неубывающих массива чисел. Найти число, которое присутствует во всех трех массивах.**
 ```
 def find_common_element(arr1, arr2, arr3):
@@ -228,7 +286,7 @@ else:
     print("Общего элемента нет")
 ```
 
-### 10
+### 12
 **Given a signed 32-bit integer x, return x with its digits reversed.<br>
 If reversing x causes the value to go outside the signed 32-bit integer range [-231, 231 - 1], then return 0**
 ```
@@ -247,7 +305,7 @@ def reverse(self, x: int) -> int:
         return reversed_x
 ```
 
-### 11
+### 13
 **Given a non-empty array of integers nums, every element appears twice except for one. Find that single one.**
 ```
 class Solution:
@@ -259,7 +317,7 @@ class Solution:
 ```
 Для решения этой задачи мы используем операцию исключающего ИЛИ (XOR). Операция XOR имеет свойство, что если мы применяем ее к двум одинаковым числам, результат будет 0, а если применяем к числу и 0, результат будет самим числом. Таким образом, если мы применяем XOR ко всем элементам массива, то все повторяющиеся числа "сошьются" друг с другом, и останется только одно уникальное число, которое не имеет пары.
 
-### 12
+### 14
 **Given an integer array nums, move all 0's to the end of it while maintaining the relative order of the non-zero elements.**
 ```
 class Solution:
