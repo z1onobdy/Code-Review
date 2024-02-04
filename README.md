@@ -320,6 +320,14 @@ def reverse(self, x: int) -> int:
       else:
         return reversed_x
 ```
+или
+```
+a = int(input())
+while a != 0:
+    n = a % 10
+    print(n, sep = '', end = '')
+    a = a // 10
+```
 
 ### 13
 **Given a non-empty array of integers nums, every element appears twice except for one. Find that single one.**
